@@ -4,9 +4,10 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libzip-dev \
-    && docker-php-ext-install zip
+    $PHPIZE_DEPS
 
-# MongoDB Extension
+RUN docker-php-ext-install zip
+
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
 
