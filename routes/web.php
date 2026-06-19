@@ -259,15 +259,22 @@ Route::middleware('admin')->group(function () {
     */
 
     Route::view('/orders', 'admin.orders');
-   Route::get('/customers', function () {
+  
 
-    $user = DB::connection('mongodb')
-        ->getDatabase()
-        ->selectCollection('users')
-        ->findOne();
+Route::get('/customers', function () {
 
-    dd($user);
+    $customers = collect(
+        DB::connection('mongodb')
+            ->getDatabase()
+            ->selectCollection('users')
+            ->find()
+            ->toArray()
+    );
 
+    return view(
+        'admin.customers',
+        compact('customers')
+    );
 });
 
     Route::view('/discounts', 'admin.discounts');
