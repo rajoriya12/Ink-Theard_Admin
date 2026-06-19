@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libzip-dev \
+    pkg-config \
+    libssl-dev \
     $PHPIZE_DEPS
 
 RUN docker-php-ext-install zip
