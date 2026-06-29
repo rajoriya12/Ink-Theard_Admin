@@ -9,9 +9,9 @@ RUN apt-get update && apt-get install -y \
     $PHPIZE_DEPS
 
 RUN docker-php-ext-install zip
-
-RUN pecl install mongodb \
-    && docker-php-ext-enable mongodb
+RUN pecl install mongodb && \
+    docker-php-ext-enable mongodb && \
+    php -i | grep -i openssl
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
