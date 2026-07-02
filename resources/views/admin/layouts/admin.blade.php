@@ -79,8 +79,6 @@
         <a href="/customers">👥 Customers</a>
         <a href="/messages">📩 Messages</a>
         <a href="/orders">📦 Orders</a>
-        <a href="/discounts">🏷 Discounts</a>
-        <a href="/settings">⚙ Settings</a>
         <a href="/logout">🚪 Logout</a>
 
     </div>
