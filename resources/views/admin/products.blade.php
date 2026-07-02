@@ -84,60 +84,64 @@
             </thead>
 
             <tbody>
-
                 @forelse($products as $product)
 
                 <tr>
 
+                  
                     <td>
-
                         <input
                             type="checkbox"
                             name="selected_products[]"
                             value="{{ $product->_id }}"
                             class="product-checkbox">
-
                     </td>
 
                     <td>
+                        @php
+                        $image = is_array($product->image ?? null)
+                        ? ($product->image[0] ?? '')
+                        : ($product->image ?? '');
+                        @endphp
 
+                        @if($image)
                         <img
-                            src="{{ $product->image }}"
+                            src="{{ $image }}"
                             width="80"
                             height="80"
                             style="object-fit:cover;border-radius:8px;">
-
-                    </td>
-
-                    <td>{{ $product->title }}</td>
-
-                    <td>₹ {{ $product->price }}</td>
-
-                    <td>{{ $product->category }}</td>
-
-                    <td>{{ $product->discount }}%</td>
-
-                    <td>
-
-                        @if($product->featured)
-
-                        <span class="badge bg-success">
-                            Yes
-                        </span>
-
                         @else
-
-                        <span class="badge bg-danger">
-                            No
-                        </span>
-
+                        <span>No Image</span>
                         @endif
-
                     </td>
 
                     <td>
+                        {{ is_array($product->title ?? null) ? implode(', ', $product->title) : $product->title }}
+                    </td>
 
-                        <div class="btn-group flex gap-3" role="group" >
+                    <td>
+                        ₹ {{ is_array($product->price ?? null) ? implode(', ', $product->price) : $product->price }}
+                    </td>
+
+                    <td>
+                        {{ is_array($product->category ?? null) ? implode(', ', $product->category) : $product->category }}
+                    </td>
+
+                    <td>
+                        {{ is_array($product->discount ?? null) ? implode(', ', $product->discount) : $product->discount }}%
+                    </td>
+
+                    <td>
+                        @if($product->featured)
+                        <span class="badge bg-success">Yes</span>
+                        @else
+                        <span class="badge bg-danger">No</span>
+                        @endif
+                    </td>
+
+                    <td>
+                        <div class="btn-group gap-3" role="group">
+
                             <form
                                 action="/products/delete/{{ $product->_id }}"
                                 method="POST">
@@ -156,29 +160,27 @@
 
                             </form>
 
-
-
                             <a href="/products/edit/{{ $product->_id }}"
                                 class="btn btn-primary btn-sm px-3">
                                 Edit
                             </a>
-                        </div>
 
+                        </div>
                     </td>
+               
 
                 </tr>
 
                 @empty
 
                 <tr>
-
                     <td colspan="8" class="text-center">
                         No Products Found
                     </td>
-
                 </tr>
 
                 @endforelse
+
 
             </tbody>
 
